@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaming Code Activation Blog | Troubleshooting Tips</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Light off-white background */
+            color: #1e293b;
+        }
+        .cta-button {
+            background-color: #00A8E0; /* A clean, approachable blue */
+            transition: all 0.2s ease-in-out;
+        }
+        .cta-button:hover {
+            background-color: #0095c7;
+            transform: translateY(-1px);
+        }
+        .blog-link {
+            transition: color 0.2s;
+        }
+        .blog-link:hover {
+            color: #00A8E0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-800">
+                <a href="#top" class="hover:text-gray-600">Prime Activation Help</a>
+            </h1>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#guides" class="text-gray-600 hover:text-gray-900">Guides</a>
+                <a href="#errors" class="text-gray-600 hover:text-gray-900">Errors</a>
+                <a href="#contact-us" class="text-gray-600 hover:text-gray-900">Verification</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <!-- The grid collapses to a single column on mobile, placing sidebar content below posts -->
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10 p-4 sm:p-6 lg:p-8">
+
+        <!-- Column 1 & 2: Blog Posts -->
+        <div id="guides" class="lg:col-span-2 space-y-12 pt-4">
+            
+            <h2 class="text-3xl font-extrabold text-gray-800 border-b pb-4">Latest Troubleshooting Guides</h2>
+
+            <!-- BLOG POST 1: Code Not Working -->
+            <article class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                <h3 class="text-xl sm:text-2xl font-bold mb-3">
+                    Why is My Prime Activation Code Not Working? (5 Quick Fixes)
+                </h3>
+                <div class="text-sm text-gray-500 mb-4">
+                    Posted on Dec 17, 2025 | By Activation Expert
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Dealing with a stubborn 6-digit code? It’s frustrating when you see the code on your TV screen but the website refuses to accept it. Before you panic, there are five simple steps you should check immediately. This often resolves issues related to browser cache, typing errors, or network latency.
+                </p>
+                <ul class="list-disc list-inside text-gray-600 text-sm space-y-2 mb-6">
+                    <li>Check for capital letters and common misreadings (0 vs O, 1 vs I).</li>
+                    <li>Ensure you are entering the code within the 10-minute validity window.</li>
+                    <li>Clear your browser's cache or try a different device (phone/tablet).</li>
+                </ul>
+                <a href="#cta-main-mobile" class="text-blue-600 hover:text-blue-800 font-semibold">
+                    Read the Full Guide & Get Verification Help &rarr;
+                </a>
+            </article>
+
+            <!-- BLOG POST 2: Device Not Showing Up -->
+            <article class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                <h3 class="text-xl sm:text-2xl font-bold mb-3">
+                    Device Linking Failed: What to Do When Your TV Won't Connect
+                </h3>
+                <div class="text-sm text-gray-500 mb-4">
+                    Posted on Dec 10, 2025 | By Connectivity Team
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    A device linking failure usually happens after the code is accepted but before the streaming starts. This indicates a deeper problem with network configuration or account security settings. Do not factory reset your device yet! We recommend checking your router settings and then immediately proceeding to phone verification.
+                </p>
+                <div class="mt-6">
+                    <a href="#cta-main-mobile" class="text-blue-600 hover:text-blue-800 font-semibold">
+                        Need Immediate Connection Help? Click Here &rarr;
+                    </a>
+                </div>
+            </article>
+
+            <!-- BLOG POST 3: Security & Verification -->
+            <article class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                <h3 class="text-xl sm:text-2xl font-bold mb-3">
+                    The Importance of Phone Verification for New Prime Activations
+                </h3>
+                <div class="text-sm text-gray-500 mb-4">
+                    Posted on Dec 01, 2025 | By Security Analyst
+                </div>
+                <p class="text-gray-700 leading-relaxed">
+                    Account security is paramount in today's digital landscape. Modern streaming services often require a final, secure verification step—phone verification—to confirm the device location and prevent unauthorized access. If your activation attempt is paused, this extra step protects your account and data. Use our simple verification channel below.
+                </p>
+            </article>
+            
+            <!-- End of Content CTA -->
+            <div id="cta-bottom" class="bg-indigo-50 p-6 rounded-xl text-center shadow-inner">
+                <h4 class="text-xl font-bold text-indigo-800 mb-4">Still Having Trouble?</h4>
+                <p class="text-indigo-700 mb-6">
+                    If your activation code continues to fail, the most common solution is a quick, secure online verification.
+                </p>
+                <a href="https://activate-mytv.onrender.com/" 
+                   class="cta-button inline-block text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-lg">
+                    Proceed to Online Verification &rarr;
+                </a>
+            </div>
+        </div>
+
+        <!-- Column 3: Sidebar/CTA -->
+        <div id="contact-us" class="space-y-8 pt-4 lg:pt-6">
+            
+            <!-- Primary Sidebar CTA -->
+            <!-- Removed 'sticky top-4' for better mobile compatibility -->
+            <div id="cta-main" class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-3">
+                    Activation Not Completed?
+                </h3>
+                <p class="text-gray-600 mb-4 text-sm">
+                    Don't waste time troubleshooting. Many code failures require immediate verification.
+                </p>
+                <div class="mb-4">
+                    <p class="text-sm font-semibold text-gray-700">Recommended Solution:</p>
+                </div>
+                
+                <!-- Redirection Button -->
+                <a href="https://activate-mytv.onrender.com/" 
+                   id="cta-main-mobile"
+                   class="cta-button w-full block text-white font-semibold py-3 rounded-lg shadow-xl"
+                >
+                    Start Quick Code Verification
+                </a>
+                
+                <p class="text-xs text-gray-500 mt-3">
+                    This step bypasses common TV and network errors.
+                </p>
+            </div>
+
+            <!-- Recent Posts List -->
+            <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                <h3 class="text-lg font-bold text-gray-800 mb-4 border-b pb-3">
+                    Recent Topics
+                </h3>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#errors" class="blog-link text-gray-700">Fixing Code Mismatches</a></li>
+                    <li><a href="#errors" class="blog-link text-gray-700">Router Firewall Blocking Prime</a></li>
+                    <li><a href="#guides" class="blog-link text-gray-700">Managing Multiple Devices</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-6 mt-12">
+        <div class="max-w-7xl mx-auto text-center text-sm">
+            &copy; 2025 Streaming Activation Guides | Independent Troubleshooting Resource
+        </div>
+    </footer>
+</body>
+</html>
